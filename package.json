@@ -1,0 +1,30 @@
+{
+  "name": "junction-normalizr-decorator",
+  "version": "0.1.0",
+  "description": "Map your Junction entity schema to an output suitable for normalizr",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "babel src -d lib",
+    "prepublish": "npm run build"
+  },
+  "keywords": [
+    "orm",
+    "pojo",
+    "mapper",
+    "junction",
+    "decorator",
+    "normalizr",
+    "schema"
+  ],
+  "author": "Andy Shea",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-cli": "^6.14.0",
+    "babel-preset-es2015": "^6.14.0",
+    "babel-register": "^6.14.0"
+  },
+  "dependencies": {
+    "normalizr": "^2.2.1",
+    "pluralize": "^3.0.0"
+  }
+}
