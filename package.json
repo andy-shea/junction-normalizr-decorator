@@ -1,6 +1,6 @@
 {
   "name": "junction-normalizr-decorator",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Map your Junction entity schema to an output suitable for normalizr",
   "main": "lib/index.js",
   "repository": {
