@@ -1,4 +1,4 @@
-import {Schema, arrayOf} from 'normalizr';
+import {schema} from 'normalizr';
 import pluralize from 'pluralize';
 
 function visit(klass, options = {}) {
@@ -18,15 +18,15 @@ function visit(klass, options = {}) {
   if (collections) {
     Object.assign(schemaDefinition, Object.keys(collections).reduce((map, prop) => {
       const {element} = collections[prop];
-      if (element.schema) {
+      if (element) {
         const elementSchema = (element.schema.type === 'entity' && element.normalizedSchema);
-        map[prop] = arrayOf(elementSchema || visit(element));
+        map[prop] = [elementSchema || visit(element)];
       }
       return map;
     }, {}));
   }
   if (type === 'entity') {
-    const normalizedSchema = new Schema(pluralize(klass.name.toLowerCase()), options);
+    const normalizedSchema = new schema.Entity(pluralize(klass.name.toLowerCase()), options);
     normalizedSchema.define(schemaDefinition);
     return normalizedSchema;
   }
