@@ -1,5 +1,7 @@
 # Junction Normalizr Decorator
-**Requirements:** Node.js 6+
+
+[![Build Status](https://travis-ci.org/andy-shea/junction-normalizr-decorator.svg?branch=master)](https://travis-ci.org/andy-shea/junction-normalizr-decorator)
+[![Code Coverage](http://codecov.io/github/andy-shea/junction-normalizr-decorator/coverage.svg?branch=master)](http://codecov.io/github/andy-shea/junction-normalizr-decorator?branch=master)
 
 Map your Junction entity schema to an output suitable for normalizr
 
