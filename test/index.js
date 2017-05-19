@@ -101,6 +101,20 @@ EmbeddedCollection.schema = {
   }
 }
 
+@normalizable({idAttribute: 'name'})
+class Custom {
+  name;
+}
+Custom.schema = {
+  type: 'entity',
+  props: {
+    name: {
+      type: 'string',
+      isRequired: true
+    }
+  }
+}
+
 test('errors if schema is missing', t => {
   t.throws(() => Missing.normalizedSchema, /Missing schema/);
   t.end();
@@ -220,5 +234,17 @@ test('normalizable entity with embedded collection is correctly normalized', t =
   t.notEqual(typeof response.entities.embeddedcollections, 'undefined', 'the entity type "embeddedcollections" exists');
   t.equal(Object.keys(response.entities.embeddedcollections).length, 1, 'there is a single compound entity');
   t.deepEqual(response.entities.embeddedcollections[100], compound, 'the compound entity is identical');
+  t.end();
+});
+
+test('normalizable entity with custom id attribute is correctly normalized', t => {
+  const custom = {name: 'custom'};
+  const response = normalize(custom, Custom.normalizedSchema);
+
+  t.equal(response.result, 'custom', 'the result contains a single id');
+  t.equal(Object.keys(response.entities).length, 1, 'the result contains a single entity type');
+  t.notEqual(typeof response.entities.customs, "'undefined'", 'the entity type is "customs"');
+  t.equal(Object.keys(response.entities.customs).length, 1, 'there is a single custom entity');
+  t.deepEqual(response.entities.customs['custom'], custom, 'the custom entity is identical');
   t.end();
 });

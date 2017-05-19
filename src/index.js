@@ -26,7 +26,7 @@ function visit(klass, options = {}) {
     }, {}));
   }
   if (type === 'entity') {
-    const normalizedSchema = new schema.Entity(pluralize(klass.name.toLowerCase()), options);
+    const normalizedSchema = new schema.Entity(pluralize(klass.name.toLowerCase()), {}, options);
     normalizedSchema.define(schemaDefinition);
     return normalizedSchema;
   }
