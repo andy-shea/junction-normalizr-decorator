@@ -1,12 +1,12 @@
 import {schema} from 'normalizr';
-import pluralize from 'pluralize';
+import * as pluralize from 'pluralize';
 
-function visit(klass, options = {}) {
-  if (!klass.schema) throw Error('Missing schema');
-  const {type, props, collections} = klass.schema;
+function visit(target: any, options = {}): any {
+  if (!target.schema) throw Error('Missing schema');
+  const {type, props, collections} = target.schema;
   let schemaDefinition = {};
   if (props) {
-    Object.assign(schemaDefinition, Object.keys(props).reduce((map, prop) => {
+    Object.assign(schemaDefinition, Object.keys(props).reduce((map: any, prop) => {
       const {type} = props[prop];
       if (type && type.schema) {
         const propSchema = (type.schema.type === 'entity' && type.normalizedSchema);
@@ -16,7 +16,7 @@ function visit(klass, options = {}) {
     }, {}));
   }
   if (collections) {
-    Object.assign(schemaDefinition, Object.keys(collections).reduce((map, prop) => {
+    Object.assign(schemaDefinition, Object.keys(collections).reduce((map: any, prop) => {
       const {element} = collections[prop];
       if (element) {
         const elementSchema = (element.schema.type === 'entity' && element.normalizedSchema);
@@ -26,7 +26,7 @@ function visit(klass, options = {}) {
     }, {}));
   }
   if (type === 'entity') {
-    const normalizedSchema = new schema.Entity(pluralize(klass.name.toLowerCase()), {}, options);
+    const normalizedSchema = new schema.Entity(pluralize(target.name.toLowerCase()), {}, options);
     normalizedSchema.define(schemaDefinition);
     return normalizedSchema;
   }
@@ -34,8 +34,8 @@ function visit(klass, options = {}) {
 }
 
 function normalizable(options = {}) {
-  let schema;
-  return target => {
+  let schema: any;
+  return (target: any) => {
     Object.defineProperty(target, 'normalizedSchema', {
       get: function normalizedSchema() {
         if (!schema) schema = visit(target, options);

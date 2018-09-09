@@ -1,12 +1,16 @@
-import test from 'tape';
+import * as test from 'tape';
 import normalizable from '../src';
 import {normalize} from 'normalizr';
 
 @normalizable()
-class Missing {}
+class Missing {
+  static normalizedSchema: any;
+}
 
 @normalizable()
 class Basic {
+  static schema: object;
+  static normalizedSchema: any;
   number = 4;
   boolean = true;
 }
@@ -26,6 +30,8 @@ Basic.schema = {
 
 @normalizable()
 class Arr {
+  static schema: object;
+  static normalizedSchema: any;
   numbers = [];
 }
 Arr.schema = {
@@ -39,7 +45,9 @@ Arr.schema = {
 
 @normalizable()
 class CompoundProperty {
-  basic;
+  static schema: object;
+  static normalizedSchema: any;
+  basic: Basic | undefined;
 }
 CompoundProperty.schema = {
   type: 'entity',
@@ -52,6 +60,8 @@ CompoundProperty.schema = {
 
 @normalizable()
 class CompoundCollection {
+  static schema: object;
+  static normalizedSchema: any;
   basics = [];
 }
 CompoundCollection.schema = {
@@ -64,7 +74,9 @@ CompoundCollection.schema = {
 }
 
 class Embedded {
-  name
+  static schema: object;
+  static normalizedSchema: any;
+  name: string | undefined;
 }
 Embedded.schema = {
   type: 'embedded',
@@ -77,7 +89,9 @@ Embedded.schema = {
 
 @normalizable()
 class EmbeddedProperty {
-  embedded
+  static schema: object;
+  static normalizedSchema: any;
+  embedded: Embedded | undefined
 }
 EmbeddedProperty.schema = {
   type: 'entity',
@@ -90,6 +104,8 @@ EmbeddedProperty.schema = {
 
 @normalizable()
 class EmbeddedCollection {
+  static schema: object;
+  static normalizedSchema: any;
   embeddeds = []
 }
 EmbeddedCollection.schema = {
@@ -103,7 +119,9 @@ EmbeddedCollection.schema = {
 
 @normalizable({idAttribute: 'name'})
 class Custom {
-  name;
+  static schema: object;
+  static normalizedSchema: any;
+  name: string | undefined;
 }
 Custom.schema = {
   type: 'entity',
